@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,21 @@ namespace DTA_2022_23_Battleship.Model {
         private Board boardPlayer2 = new Board(10);
 
         public void StartNewGame() {
+            var randomBoardGenerator = new RandomBoardGenerator();
 
-            var ships = this.GenerateShips();
+            var shipsPlayer1 = this.GenerateShips();
+            randomBoardGenerator.Generate(boardPlayer1, shipsPlayer1);
 
-            // TODO: Add Ships to Board
-            foreach (var ship in ships) {
-                boardPlayer1.AddShip(ship);
-            }
+            var shipsPlayer2 = this.GenerateShips();
+            randomBoardGenerator.Generate(boardPlayer2, shipsPlayer2);
 
+            boardPlayer1.PrintBoard();
+            Debug.WriteLine("\n\n");
+            boardPlayer2.PrintBoard();
         }
+
+        public Board BoardPlayer1 { get { return boardPlayer1; } }
+        public Board BoardPlayer2 { get { return this.boardPlayer2; } }
 
         private List<Ship> GenerateShips() {
             var ships = new List<Ship>();

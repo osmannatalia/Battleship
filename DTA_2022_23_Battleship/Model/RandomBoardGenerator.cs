@@ -55,7 +55,7 @@
             if (placing) {
                 board.AddShip(ship, placement.Coordinate, placement.Orientation);
             } else {
-                board.Remove(ship);
+                board.RemoveShip(ship);
             }
         }
 

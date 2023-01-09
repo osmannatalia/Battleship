@@ -19,5 +19,13 @@ namespace DTA_2022_23_Battleship.Model {
                 return internalList.Count;
             }
         }
+
+        public IEnumerable<ShipSquare> ShipSquares {
+            get {
+                foreach(var square in internalList) {
+                    yield return square;
+                }
+            }
+        }
     }
 }

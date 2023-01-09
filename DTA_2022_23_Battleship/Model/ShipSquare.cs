@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 
 namespace DTA_2022_23_Battleship.Model {
     public class ShipSquare {
+        public Coordinate? Coordinate { get; set; }
     }
 }

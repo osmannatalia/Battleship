@@ -1,50 +1,25 @@
+using DTA_2022_23_Battleship.Model;
+
 namespace DTA_2022_23_Battleship {
     public partial class BattleshipGame : Form {
-        public BattleshipGame() {
+        private Game game;   // Model
+        public BattleshipGame(Game game) {
+            this.game = game;
+
             InitializeComponent();
-        }
+            game.StartNewGame();            
 
-        private void battleshipBoard1_Load(object sender, EventArgs e) {
+            // View:
+            // BattleshipGame (=this)
+            // this.battleshipBoardPlayer1
+            // this.battleshipBoardPlayer2
 
-        }
 
-        private void battleshipBoard2_Load(object sender, EventArgs e) {
-
-        }
-
-        private void battleshipBoard3_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void battleshipBoard5_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BattleshipGame_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void battleshipBoard6_Load(object sender, EventArgs e)
-        {
-
+            // TODO:
+            // Hier sind die Boards (=Model) mit den Schiffen erzeugt.
+            // game.BoardPlayer1 mit this.battleshipBoardPlayer1 visualisieren
+            // D.h. game.BoardPlayer1 an this.battleshipBoardPlayer1 übergeben und
+            // in BattleshipBoard die Logik für die Visualisierung umsetzen.
         }
     }
 }
