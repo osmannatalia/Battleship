@@ -8,9 +8,15 @@ namespace DTA_2022_23_Battleship.Model {
     public class Ship {
         private LinkedList<ShipSquare> internalList = new LinkedList<ShipSquare>();
 
-        public Ship(int length) { 
-            for(var i = 0; i<length; i++) {
+        public Ship(int length) {
+            for (var i = 0; i < length; i++) {
                 this.internalList.AddLast(new ShipSquare());
+            }
+        }
+
+        public int Length {
+            get {
+                return internalList.Count;
             }
         }
     }
