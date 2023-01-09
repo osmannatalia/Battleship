@@ -22,6 +22,28 @@ namespace DTA_2022_23_Battleship {
             // Insert a panel into each cell - this can then be colored.
             // In addition, the click event can be handled in the panel (for the shot by the human player)
 
+            for (int r = 0; r < this.tableLayoutPanel1.RowCount; r++)
+            {
+                for (int c = 0; c < this.tableLayoutPanel1.ColumnCount; c++) {
+                    
+                    var panel = new Panel();
+                    panel.Dock = DockStyle.Fill;
+                    panel.Click += this.panel1_Click;
+
+                    this.tableLayoutPanel1.Controls.Add(panel, c, r);
+
+
+
+                }
+            }
+
+        }
+
+        private void panel1_Click(object? sender, EventArgs e)
+        {
+            // MessageBox.Show("Hello");
+            var panel = (Panel)sender;
+            panel.BackColor = Color.Red;
         }
     }
 }
