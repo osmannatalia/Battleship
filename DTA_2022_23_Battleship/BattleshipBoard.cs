@@ -25,25 +25,25 @@ namespace DTA_2022_23_Battleship {
             for (int r = 0; r < this.tableLayoutPanel1.RowCount; r++)
             {
                 for (int c = 0; c < this.tableLayoutPanel1.ColumnCount; c++) {
-                    
+
                     var panel = new Panel();
                     panel.Dock = DockStyle.Fill;
                     panel.Click += this.panel1_Click;
 
                     this.tableLayoutPanel1.Controls.Add(panel, c, r);
+                    panel.BackColor = Color.White;
 
-
-
+                    
                 }
             }
-
         }
 
         private void panel1_Click(object? sender, EventArgs e)
         {
             // MessageBox.Show("Hello");
             var panel = (Panel)sender;
-            panel.BackColor = Color.Red;
+            panel.BackColor = Color.DarkGray;
+            // panel.BorderStyle = BorderStyle.
         }
     }
 }

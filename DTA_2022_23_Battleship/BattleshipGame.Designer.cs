@@ -47,7 +47,6 @@
             this.battleshipBoard6.Name = "battleshipBoard6";
             this.battleshipBoard6.Size = new System.Drawing.Size(449, 465);
             this.battleshipBoard6.TabIndex = 5;
-            this.battleshipBoard6.Load += new System.EventHandler(this.battleshipBoard6_Load);
             // 
             // label1
             // 
@@ -58,7 +57,7 @@
             this.label1.Size = new System.Drawing.Size(177, 41);
             this.label1.TabIndex = 6;
             this.label1.Text = "BattleShip ";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            
             // 
             // button1
             // 
@@ -69,7 +68,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "EXIT";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            //this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // BattleshipGame
             // 
@@ -84,7 +83,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "BattleshipGame";
             this.Text = "BattleShip";
-            this.Load += new System.EventHandler(this.BattleshipGame_Load);
+//            this.Load += new System.EventHandler(this.BattleshipGame_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
