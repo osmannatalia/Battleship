@@ -10,7 +10,7 @@ namespace DTA_2022_23_Battleship {
             //// To customize application configuration such as set high DPI settings or default font,
             //// see https://aka.ms/applicationconfiguration.
             ///
-            var game = new Game();
+            var game = new Game(); // Model
             ApplicationConfiguration.Initialize();
 
             // Model (game) wird der View (BattleshipGame) übergeben

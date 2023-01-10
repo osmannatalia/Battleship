@@ -1,6 +1,5 @@
 ﻿
 using System.Diagnostics;
-using System.Drawing;
 
 namespace DTA_2022_23_Battleship.Model {
     public class Board {
@@ -14,6 +13,10 @@ namespace DTA_2022_23_Battleship.Model {
                     this.internalBoard[r, c] = new SeaSquare();
                 }
             }
+        }
+
+        public SeaSquare GetSeaSquare(Coordinate coordinate) {
+            return this.internalBoard[coordinate.X, coordinate.Y];
         }
 
         private List<Ship> ships = new List<Ship>();
@@ -49,6 +52,32 @@ namespace DTA_2022_23_Battleship.Model {
             var seaSquare = this.internalBoard[coordinate.X, coordinate.Y];
             return seaSquare.HasShip;
         }
+
+        public void Shot(Coordinate coordinate) {
+            if(!this.IsYourTurn) {
+                return;
+            }
+            ShotResponse response;
+            var seaSquare = this.internalBoard[coordinate.X, coordinate.Y];
+            if (seaSquare.IsHit) {
+                response = ShotResponse.IsAlreadShot;
+            } else {
+                if(seaSquare.HasShip) {
+                    response = ShotResponse.IsHit;
+                } else {
+                    response = ShotResponse.IsMiss;
+                }
+                seaSquare.IsHit = true;
+            }
+            if(this.AfterShot!= null) {
+                this.AfterShot(this, new AfterShotEventArgs { Coordinate = coordinate, ShotResponse = response}); // Event wird ausgelöst
+                // d.h. alle registrierten Views werden informiert.
+            }
+        }
+
+        public bool IsYourTurn { get; set; }
+
+        public event EventHandler<AfterShotEventArgs> AfterShot;
 
         public void PrintBoard() {
             Debug.WriteLine("\n--------------------");

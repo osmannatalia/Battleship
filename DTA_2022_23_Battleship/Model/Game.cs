@@ -19,9 +19,20 @@ namespace DTA_2022_23_Battleship.Model {
             var shipsPlayer2 = this.GenerateShips();
             randomBoardGenerator.Generate(boardPlayer2, shipsPlayer2);
 
-            boardPlayer1.PrintBoard();
-            Debug.WriteLine("\n\n");
-            boardPlayer2.PrintBoard();
+            boardPlayer1.AfterShot += (sender, eventArgs) => {
+                boardPlayer1.IsYourTurn = false;
+                boardPlayer2.IsYourTurn = true;
+            };
+
+            boardPlayer2.AfterShot += (sender, eventArgs) => {
+                boardPlayer1.IsYourTurn = true;
+                boardPlayer2.IsYourTurn = false;
+            };
+
+            boardPlayer1.IsYourTurn = true;
+            //boardPlayer1.PrintBoard();
+            //Debug.WriteLine("\n\n");
+            //boardPlayer2.PrintBoard();
         }
 
         public Board BoardPlayer1 { get { return boardPlayer1; } }

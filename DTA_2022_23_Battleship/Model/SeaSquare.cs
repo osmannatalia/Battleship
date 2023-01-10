@@ -29,5 +29,6 @@ namespace DTA_2022_23_Battleship.Model {
             this.ShipSquare = null;
         }
 
+        public bool IsHit { get; set; }
     }
 }
