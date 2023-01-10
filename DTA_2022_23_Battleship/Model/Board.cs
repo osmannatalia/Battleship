@@ -53,6 +53,7 @@ namespace DTA_2022_23_Battleship.Model {
             return seaSquare.HasShip;
         }
 
+        public int Score { get; private set; }
         public void Shot(Coordinate coordinate) {
             if(!this.IsYourTurn) {
                 return;
@@ -68,6 +69,11 @@ namespace DTA_2022_23_Battleship.Model {
                     response = ShotResponse.IsMiss;
                 }
                 seaSquare.IsHit = true;
+                // TODO: Prüfung, ist komplettes Schiff versenkt und Mark in Ship.IsSunk
+                //       Diese Info ggf. im ShotResponse erweitern
+            }
+            if(response != ShotResponse.IsHit) {
+                this.Score++;
             }
             if(this.AfterShot!= null) {
                 this.AfterShot(this, new AfterShotEventArgs { Coordinate = coordinate, ShotResponse = response}); // Event wird ausgelöst
@@ -75,8 +81,22 @@ namespace DTA_2022_23_Battleship.Model {
             }
         }
 
-        public bool IsYourTurn { get; set; }
+        private bool isYourTurn;
+        public bool IsYourTurn {
+            get {
+                return this.isYourTurn;
+            }
+            set {
+                if (this.isYourTurn != value) {
+                    this.isYourTurn = value;
+                    if(this.IsYourTurnChanged != null) {
+                        this.IsYourTurnChanged(this, EventArgs.Empty);
+                    }
+                }
+            }
+        }
 
+        public event EventHandler IsYourTurnChanged;
         public event EventHandler<AfterShotEventArgs> AfterShot;
 
         public void PrintBoard() {

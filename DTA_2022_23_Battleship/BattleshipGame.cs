@@ -7,13 +7,29 @@ namespace DTA_2022_23_Battleship {
             this.game = game;
 
             InitializeComponent();
+
+
+            game.BoardPlayer1.AfterShot += BoardPlayer1_AfterShot;
+            game.BoardPlayer2.AfterShot += BoardPlayer2_AfterShot;
+
+            game.BoardPlayer1.IsYourTurnChanged += (sender, args) => {
+                if (this.game.BoardPlayer1.IsYourTurn) {
+                    this.label2.Text = "Your turn";
+                    this.label3.Text = "Wait";
+                }
+            };
+            game.BoardPlayer2.IsYourTurnChanged += (sender, args) => {
+                if (this.game.BoardPlayer2.IsYourTurn) {
+                    this.label3.Text = "Your turn";
+                    this.label2.Text = "Wait";
+                }
+            };
+
             game.StartNewGame();
 
             this.battleshipBoardPlayer1.SetBoard(game.BoardPlayer1, true);
             this.battleshipBoardPlayer2.SetBoard(game.BoardPlayer2, true);
 
-            game.BoardPlayer1.AfterShot += BoardPlayer1_AfterShot;
-            game.BoardPlayer2.AfterShot += BoardPlayer2_AfterShot;
             // View:
             // BattleshipGame (=this)
             // this.battleshipBoardPlayer1
@@ -29,10 +45,12 @@ namespace DTA_2022_23_Battleship {
 
         private void BoardPlayer1_AfterShot(object? sender, AfterShotEventArgs e) {
             this.battleshipBoardPlayer1.EvaluateShipState(e.Coordinate);
+            this.label5.Text = game.BoardPlayer1.Score.ToString();
         }
 
         private void BoardPlayer2_AfterShot(object? sender, AfterShotEventArgs e) {
             this.battleshipBoardPlayer2.EvaluateShipState(e.Coordinate);
+            this.label4.Text = game.BoardPlayer2.Score.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e) {

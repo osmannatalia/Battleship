@@ -29,6 +29,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // battleshipBoardPlayer1
@@ -37,6 +41,7 @@
             this.battleshipBoardPlayer1.Location = new System.Drawing.Point(60, 83);
             this.battleshipBoardPlayer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.battleshipBoardPlayer1.Name = "battleshipBoardPlayer1";
+            this.battleshipBoardPlayer1.ShowShips = false;
             this.battleshipBoardPlayer1.Size = new System.Drawing.Size(314, 279);
             this.battleshipBoardPlayer1.TabIndex = 4;
             // 
@@ -46,6 +51,7 @@
             this.battleshipBoardPlayer2.Location = new System.Drawing.Point(460, 83);
             this.battleshipBoardPlayer2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.battleshipBoardPlayer2.Name = "battleshipBoardPlayer2";
+            this.battleshipBoardPlayer2.ShowShips = false;
             this.battleshipBoardPlayer2.Size = new System.Drawing.Size(314, 279);
             this.battleshipBoardPlayer2.TabIndex = 5;
             // 
@@ -91,11 +97,51 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(74, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 15);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "label2";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(497, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 15);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "label3";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(269, 57);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 15);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(722, 59);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 15);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "0";
+            // 
             // BattleshipGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.battleshipBoardPlayer1);
@@ -118,5 +164,9 @@
         private Button button1;
         private Button button2;
         private Button button3;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
     }
 }

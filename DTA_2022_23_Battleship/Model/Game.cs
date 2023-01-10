@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTA_2022_23_Battleship.Model.Strategies;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -20,20 +21,46 @@ namespace DTA_2022_23_Battleship.Model {
             randomBoardGenerator.Generate(boardPlayer2, shipsPlayer2);
 
             boardPlayer1.AfterShot += (sender, eventArgs) => {
-                boardPlayer1.IsYourTurn = false;
-                boardPlayer2.IsYourTurn = true;
+                if (eventArgs.ShotResponse != ShotResponse.IsHit) {
+                    boardPlayer1.IsYourTurn = false;
+                    boardPlayer2.IsYourTurn = true;
+                }
             };
 
             boardPlayer2.AfterShot += (sender, eventArgs) => {
-                boardPlayer1.IsYourTurn = true;
-                boardPlayer2.IsYourTurn = false;
+                if (eventArgs.ShotResponse != ShotResponse.IsHit) {
+                    boardPlayer1.IsYourTurn = true;
+                    boardPlayer2.IsYourTurn = false;
+                }
             };
 
+            
+            boardPlayer1.IsYourTurnChanged += (sender, eventArgs) => {
+                if (this.boardPlayer1.IsYourTurn) {
+                    this.Player2Strategy.Shot();
+                }
+            };
+            boardPlayer2.IsYourTurnChanged += (sender, eventArgs) => {
+                if (this.boardPlayer2.IsYourTurn) {
+                    this.Player1Strategy.Shot();
+                }
+            };
+
+            this.SetPlayer1Strategy(PlayerStrategy.Manual);
+            this.SetPlayer2Strategy(PlayerStrategy.Manual);
             boardPlayer1.IsYourTurn = true;
-            //boardPlayer1.PrintBoard();
-            //Debug.WriteLine("\n\n");
-            //boardPlayer2.PrintBoard();
         }
+
+        public void SetPlayer1Strategy(PlayerStrategy playerStrategy) {
+            this.Player1Strategy = PlayerStrategyFactory.Create(playerStrategy, this.BoardPlayer2);
+        }
+
+        public void SetPlayer2Strategy(PlayerStrategy playerStrategy) {
+            this.Player2Strategy = PlayerStrategyFactory.Create(playerStrategy, this.BoardPlayer1);
+        }
+
+        private PlayerStrategyBase Player1Strategy { get; set; } 
+        private PlayerStrategyBase Player2Strategy { get; set; } 
 
         public Board BoardPlayer1 { get { return boardPlayer1; } }
         public Board BoardPlayer2 { get { return this.boardPlayer2; } }
