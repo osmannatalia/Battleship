@@ -25,7 +25,7 @@ namespace DTA_2022_23_Battleship.Model {
                     boardPlayer1.IsYourTurn = false;
                     boardPlayer2.IsYourTurn = true;
                 } else {
-                    boardPlayer1.IsYourTurn = false;
+                    boardPlayer1.IsYourTurn = true;
                 }
             };
 
