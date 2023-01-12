@@ -19,7 +19,7 @@
         }
 
         private void Board_AfterShot(object? sender, AfterShotEventArgs e) {
-            var shootingStateSquare = this.internalBoard[e.Coordinate.X, e.Coordinate.Y];
+            var shootingStateSquare = this.internalBoard[e.Coordinate.Y, e.Coordinate.X];
             shootingStateSquare.IsShot = true;
             if (e.ShotResponse == ShotResponse.IsHit) {
                 shootingStateSquare.HasShipSquare = true;
@@ -47,7 +47,7 @@
                     this.AddCoordinateForNextShot(e.Coordinate.X, e.Coordinate.Y + 1);
 
                     foreach (var coordinate in this.nextShootingCoordinates.ToList()) {
-                        if (!this.internalBoard[coordinate.X, coordinate.Y].CanShot) {
+                        if (!this.internalBoard[coordinate.Y, coordinate.X].CanShot) {
                             this.nextShootingCoordinates.Remove(coordinate);
                         }
                     }
@@ -60,7 +60,7 @@
         private void RemoveCoordinateForShooting(int x, int y) {
             if (x < 0 || x >= this.board.Size) { return; }
             if (y < 0 || y >= this.board.Size) { return; }
-            this.internalBoard[x, y].RemoveForShooting = true;
+            this.internalBoard[y, x].RemoveForShooting = true;
         }
 
         private void AddCoordinateForNextShot(int x, int y) {
@@ -68,7 +68,7 @@
             if (y < 0 || y >= this.board.Size) { return; }
             
             var coord = new Coordinate(x, y);
-            if (this.internalBoard[coord.X, coord.Y].CanShot) {
+            if (this.internalBoard[coord.Y, coord.X].CanShot) {
                 this.nextShootingCoordinates.Add(coord);
             }
         }

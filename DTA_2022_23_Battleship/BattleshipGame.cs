@@ -60,5 +60,18 @@ namespace DTA_2022_23_Battleship {
         private void button3_Click(object sender, EventArgs e) {
             this.battleshipBoardPlayer2.ShowShips = !this.battleshipBoardPlayer2.ShowShips;
         }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e) {
+            if (this.radioButton1.Checked) {
+                this.game.SetPlayer1Strategy(Model.Strategies.PlayerStrategy.Manual);
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e) {
+            if (this.radioButton2.Checked) {
+                this.game.SetPlayer1Strategy(Model.Strategies.PlayerStrategy.Stupid);
+            }
+
+        }
     }
 }

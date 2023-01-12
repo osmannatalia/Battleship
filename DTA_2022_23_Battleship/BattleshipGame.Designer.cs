@@ -33,26 +33,36 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // battleshipBoardPlayer1
             // 
+            this.battleshipBoardPlayer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.battleshipBoardPlayer1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.battleshipBoardPlayer1.Location = new System.Drawing.Point(60, 83);
             this.battleshipBoardPlayer1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.battleshipBoardPlayer1.Name = "battleshipBoardPlayer1";
             this.battleshipBoardPlayer1.ShowShips = false;
-            this.battleshipBoardPlayer1.Size = new System.Drawing.Size(314, 279);
+            this.battleshipBoardPlayer1.Size = new System.Drawing.Size(314, 332);
             this.battleshipBoardPlayer1.TabIndex = 4;
             // 
             // battleshipBoardPlayer2
             // 
+            this.battleshipBoardPlayer2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.battleshipBoardPlayer2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.battleshipBoardPlayer2.Location = new System.Drawing.Point(460, 83);
+            this.battleshipBoardPlayer2.Location = new System.Drawing.Point(583, 83);
             this.battleshipBoardPlayer2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.battleshipBoardPlayer2.Name = "battleshipBoardPlayer2";
             this.battleshipBoardPlayer2.ShowShips = false;
-            this.battleshipBoardPlayer2.Size = new System.Drawing.Size(314, 279);
+            this.battleshipBoardPlayer2.Size = new System.Drawing.Size(314, 326);
             this.battleshipBoardPlayer2.TabIndex = 5;
             // 
             // label1
@@ -68,11 +78,13 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(346, 401);
+            this.button1.Location = new System.Drawing.Point(346, 448);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(126, 33);
+            this.button1.Size = new System.Drawing.Size(249, 33);
             this.button1.TabIndex = 7;
             this.button1.Text = "EXIT";
             this.button1.UseVisualStyleBackColor = true;
@@ -133,11 +145,69 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "0";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioButton4);
+            this.groupBox1.Controls.Add(this.radioButton3);
+            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Location = new System.Drawing.Point(30, 447);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(296, 51);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(235, 23);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(61, 19);
+            this.radioButton4.TabIndex = 3;
+            this.radioButton4.Text = "Genius";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(156, 15);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(56, 19);
+            this.radioButton3.TabIndex = 2;
+            this.radioButton3.Text = "Smart";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(91, 21);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(59, 19);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.Text = "Stupid";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(20, 21);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(65, 19);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Manual";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
             // BattleshipGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(923, 510);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -151,6 +221,8 @@
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Name = "BattleshipGame";
             this.Text = "BattleShip";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,5 +240,10 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private GroupBox groupBox1;
+        private RadioButton radioButton3;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
+        private RadioButton radioButton4;
     }
 }
