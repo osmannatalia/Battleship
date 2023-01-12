@@ -66,7 +66,7 @@ namespace DTA_2022_23_Battleship {
             var panel = (Panel)tableLayoutPanel1.GetControlFromPosition(coordinate.X, coordinate.Y);
 
             if (seaSquare.HasShip) {
-                if (seaSquare.IsHit) {
+                if (seaSquare.IsShot) {
                     panel.BackColor = Color.Red;
                 } else {
                     if (showShips) {
@@ -76,7 +76,7 @@ namespace DTA_2022_23_Battleship {
                     }
                 }
             } else {
-                if(seaSquare.IsHit) {
+                if(seaSquare.IsShot) {
                     panel.BackColor = Color.Blue;
                 }
             }

@@ -10,7 +10,7 @@ namespace DTA_2022_23_Battleship.Model {
 
         public Ship(int length) {
             for (var i = 0; i < length; i++) {
-                this.internalList.AddLast(new ShipSquare());
+                this.internalList.AddLast(new ShipSquare(this));
             }
         }
 
@@ -25,6 +25,17 @@ namespace DTA_2022_23_Battleship.Model {
                 foreach(var square in internalList) {
                     yield return square;
                 }
+            }
+        }
+
+        public bool IsSunk {
+            get {      
+                foreach (var square in internalList) {
+                    if(!square.IsHit) {
+                        return false;
+                    }
+                }
+                return true;
             }
         }
     }

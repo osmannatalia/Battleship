@@ -60,15 +60,16 @@ namespace DTA_2022_23_Battleship.Model {
             }
             ShotResponse response;
             var seaSquare = this.internalBoard[coordinate.X, coordinate.Y];
-            if (seaSquare.IsHit) {
+            if (seaSquare.IsShot) {
                 response = ShotResponse.IsAlreadShot;
             } else {
                 if(seaSquare.HasShip) {
                     response = ShotResponse.IsHit;
+                    seaSquare.ShipSquare.IsHit = true;
                 } else {
                     response = ShotResponse.IsMiss;
                 }
-                seaSquare.IsHit = true;
+                seaSquare.IsShot = true;
                 // TODO: Prüfung, ist komplettes Schiff versenkt und Mark in Ship.IsSunk
                 //       Diese Info ggf. im ShotResponse erweitern
             }
@@ -81,17 +82,23 @@ namespace DTA_2022_23_Battleship.Model {
             }
         }
 
+        public Ship? GetShipFromCoordinate(Coordinate coordinate) {
+            var shipSquare = this.internalBoard[coordinate.X, coordinate.Y].ShipSquare;
+            if(shipSquare == null) {
+                return null;
+            }
+            return shipSquare.Ship;
+        }
+
         private bool isYourTurn;
         public bool IsYourTurn {
             get {
                 return this.isYourTurn;
             }
             set {
-                if (this.isYourTurn != value) {
-                    this.isYourTurn = value;
-                    if(this.IsYourTurnChanged != null) {
-                        this.IsYourTurnChanged(this, EventArgs.Empty);
-                    }
+                this.isYourTurn = value;
+                if(this.IsYourTurnChanged != null) {
+                    this.IsYourTurnChanged(this, EventArgs.Empty);
                 }
             }
         }

@@ -24,6 +24,8 @@ namespace DTA_2022_23_Battleship.Model {
                 if (eventArgs.ShotResponse != ShotResponse.IsHit) {
                     boardPlayer1.IsYourTurn = false;
                     boardPlayer2.IsYourTurn = true;
+                } else {
+                    boardPlayer1.IsYourTurn = false;
                 }
             };
 
@@ -31,6 +33,8 @@ namespace DTA_2022_23_Battleship.Model {
                 if (eventArgs.ShotResponse != ShotResponse.IsHit) {
                     boardPlayer1.IsYourTurn = true;
                     boardPlayer2.IsYourTurn = false;
+                } else {
+                    boardPlayer2.IsYourTurn = true;
                 }
             };
 
@@ -46,7 +50,7 @@ namespace DTA_2022_23_Battleship.Model {
                 }
             };
 
-            this.SetPlayer1Strategy(PlayerStrategy.Manual);
+            this.SetPlayer1Strategy(PlayerStrategy.Smart);
             this.SetPlayer2Strategy(PlayerStrategy.Manual);
             boardPlayer1.IsYourTurn = true;
         }

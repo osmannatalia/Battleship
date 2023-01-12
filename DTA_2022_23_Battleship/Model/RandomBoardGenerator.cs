@@ -1,7 +1,10 @@
 ﻿namespace DTA_2022_23_Battleship.Model {
     public class RandomBoardGenerator {
+#if TESTING
+        public Random Random { get; } = new Random(10);
+#else
         public Random Random { get; } = new Random();
-
+#endif
         public Board Generate(Board board, List<Ship> ships) {
 
             PlaceAll(ships, board);
