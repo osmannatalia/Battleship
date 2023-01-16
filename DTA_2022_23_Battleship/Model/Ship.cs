@@ -20,6 +20,15 @@ namespace DTA_2022_23_Battleship.Model {
             }
         }
 
+        public LinkedList<ShipSquare> InternalList
+        {
+            get {
+                return internalList;
+            }
+        }
+            
+
+
         public IEnumerable<ShipSquare> ShipSquares {
             get {
                 foreach(var square in internalList) {
