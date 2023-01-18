@@ -14,6 +14,23 @@ namespace DTA_2022_23_Battleship.Model {
                 }
             }
         }
+        public int ShortestShipLength
+        {
+            get {
+                int shortest = Size;
+                foreach (Ship ship in ships)
+                {
+                    if (!ship.IsSunk)
+                    {
+                        if (ship.Length < shortest)
+                        {
+                            shortest = ship.Length;
+                        }
+                    }
+                }
+                return shortest;
+            }
+        }
 
         public SeaSquare GetSeaSquare(Coordinate coordinate) {
             return this.internalBoard[coordinate.X, coordinate.Y];

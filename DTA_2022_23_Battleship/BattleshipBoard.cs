@@ -67,7 +67,15 @@ namespace DTA_2022_23_Battleship {
 
             if (seaSquare.HasShip) {
                 if (seaSquare.IsShot) {
-                    panel.BackColor = Color.Red;
+                    if(seaSquare.ShipSquare.Ship.IsSunk)
+                    {
+                        foreach (ShipSquare shipSquare in seaSquare.ShipSquare.Ship.InternalList) {
+                            panel = (Panel)tableLayoutPanel1.GetControlFromPosition(shipSquare.Coordinate.X, shipSquare.Coordinate.Y);
+                            panel.BackColor = Color.Black;
+                        }
+                    } else {
+                        panel.BackColor = Color.Red;
+                    }
                 } else {
                     if (showShips) {
                         panel.BackColor = Color.Gray;
