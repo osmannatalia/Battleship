@@ -50,7 +50,7 @@ namespace DTA_2022_23_Battleship.Model {
                 }
             };
 
-            this.SetPlayer1Strategy(PlayerStrategy.Smart);
+            this.SetPlayer1Strategy(PlayerStrategy.Genius);
             this.SetPlayer2Strategy(PlayerStrategy.Manual);
             boardPlayer1.IsYourTurn = true;
         }
@@ -72,7 +72,8 @@ namespace DTA_2022_23_Battleship.Model {
         private List<Ship> GenerateShips() {
             var ships = new List<Ship>();
 
-            for(var i = 0; i<4; i++) {
+            for (var i = 0; i < 4; i++)
+            {
                 ships.Add(new Ship(2));
             }
             for (var i = 0; i < 3; i++) {
