@@ -1,22 +1,15 @@
 ﻿using DTA_2022_23_Battleship.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using DTA_2022_23_Battleship.Model.Ships;
 
-namespace DTA_2022_23_Battleship {
+namespace DTA_2022_23_Battleship
+{
     public partial class BattleshipBoard : UserControl {
 
         public BattleshipBoard()  {
             InitializeComponent();
-
         }
-        private Board board;
+
+        private Board board = null!;
         private bool showShips;
         public void SetBoard(Board board, bool showShips) { 
             this.board = board;
@@ -62,38 +55,27 @@ namespace DTA_2022_23_Battleship {
         }
 
         public void EvaluateShipState(Coordinate coordinate) {
-            var seaSquare = board.GetSeaSquare(coordinate);
             var panel = (Panel)tableLayoutPanel1.GetControlFromPosition(coordinate.X, coordinate.Y);
 
-            if (seaSquare.HasShip) {
-                if (seaSquare.IsShot) {
-                    if(seaSquare.ShipSquare.Ship.IsSunk)
-                    {
-                        foreach (ShipSquare shipSquare in seaSquare.ShipSquare.Ship.InternalList) {
-                            panel = (Panel)tableLayoutPanel1.GetControlFromPosition(shipSquare.Coordinate.X, shipSquare.Coordinate.Y);
-                            panel.BackColor = Color.Black;
-                        }
-                    } else {
-                        panel.BackColor = Color.Red;
-                    }
-                } else {
-                    if (showShips) {
-                        panel.BackColor = Color.Gray;
-                    } else {
-                        panel.BackColor = SystemColors.ControlLight;
-                    }
+            if (this.board.HasSunkenShip(coordinate)) {
+                var ship = this.board.GetShipFromCoordinate(coordinate)!;
+                foreach (ShipSquare shipSquare in ship.ShipSquares) {
+                    panel = (Panel)tableLayoutPanel1.GetControlFromPosition(shipSquare.Coordinate!.X, shipSquare.Coordinate.Y);
+                    panel.BackColor = Color.Black;
                 }
+            } else if (this.board.HasShotShip(coordinate)) {
+                panel.BackColor = Color.Red;
+            } else if (this.board.HasShip(coordinate) && showShips) {
+                panel.BackColor = Color.Gray;
+            } else if(this.board.HasShot(coordinate)) {
+                panel.BackColor = Color.Blue;
             } else {
-                if(seaSquare.IsShot) {
-                    panel.BackColor = Color.Blue;
-                }
+                panel.BackColor = SystemColors.ControlLight;
             }
-
         }
+
         private void panel1_Click(object? sender, EventArgs e) {
-            // MessageBox.Show("Hello");
-            var panel = (Panel)sender;
-            //panel.BackColor = Color.Red;
+            var panel = (Panel)sender!;
 
             var position = this.tableLayoutPanel1.GetPositionFromControl(panel);
             var coordinate = new Coordinate(position.Column, position.Row);

@@ -1,4 +1,7 @@
-﻿namespace DTA_2022_23_Battleship.Model {
+﻿using DTA_2022_23_Battleship.Model.Ships;
+
+namespace DTA_2022_23_Battleship.Model
+{
     public class RandomBoardGenerator {
 #if TESTING
         public Random Random { get; } = new Random(10);

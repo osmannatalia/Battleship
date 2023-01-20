@@ -1,7 +1,9 @@
 ﻿
 using System.Diagnostics;
+using DTA_2022_23_Battleship.Model.Ships;
 
-namespace DTA_2022_23_Battleship.Model {
+namespace DTA_2022_23_Battleship.Model
+{
     public class Board {
         private SeaSquare[,] internalBoard;
 
@@ -59,7 +61,7 @@ namespace DTA_2022_23_Battleship.Model {
 
         public void RemoveShip(Ship ship) {
             foreach (var shipSquare in ship.ShipSquares) {
-                this.internalBoard[shipSquare.Coordinate.X, shipSquare.Coordinate.Y].UnlinkShipSquare();
+                this.internalBoard[shipSquare.Coordinate!.X, shipSquare.Coordinate.Y].UnlinkShipSquare();
 
             }
         }
@@ -82,7 +84,7 @@ namespace DTA_2022_23_Battleship.Model {
             } else {
                 if(seaSquare.HasShip) {
                     response = ShotResponse.IsHit;
-                    seaSquare.ShipSquare.IsHit = true;
+                    seaSquare.ShipSquare!.IsHit = true;
                 } else {
                     response = ShotResponse.IsMiss;
                 }
@@ -120,8 +122,23 @@ namespace DTA_2022_23_Battleship.Model {
             }
         }
 
-        public event EventHandler IsYourTurnChanged;
-        public event EventHandler<AfterShotEventArgs> AfterShot;
+        public bool HasSunkenShip(Coordinate coordinate) {
+            var seaSquare = this.GetSeaSquare(coordinate);
+            return seaSquare.HasShip && seaSquare.ShipSquare!.Ship.IsSunk;
+        }
+
+        public bool HasShotShip(Coordinate coordinate) {
+            var seaSquare = this.GetSeaSquare(coordinate);
+            return seaSquare.HasShip && seaSquare.IsShot;
+        }
+
+        public bool HasShot(Coordinate coordinate) {
+            var seaSquare = this.GetSeaSquare(coordinate);
+            return seaSquare.IsShot;
+        }
+
+        public event EventHandler? IsYourTurnChanged;
+        public event EventHandler<AfterShotEventArgs>? AfterShot;
 
         public void PrintBoard() {
             Debug.WriteLine("\n--------------------");

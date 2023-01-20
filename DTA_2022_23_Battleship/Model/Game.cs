@@ -1,4 +1,5 @@
-﻿using DTA_2022_23_Battleship.Model.Strategies;
+﻿using DTA_2022_23_Battleship.Model.Ships;
+using DTA_2022_23_Battleship.Model.Strategies;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTA_2022_23_Battleship.Model {
+namespace DTA_2022_23_Battleship.Model
+{
     public class Game {
         private Board boardPlayer1 = new Board(10);
         private Board boardPlayer2 = new Board(10);
@@ -63,8 +65,8 @@ namespace DTA_2022_23_Battleship.Model {
             this.Player2Strategy = PlayerStrategyFactory.Create(playerStrategy, this.BoardPlayer1);
         }
 
-        private PlayerStrategyBase Player1Strategy { get; set; } 
-        private PlayerStrategyBase Player2Strategy { get; set; } 
+        private PlayerStrategyBase Player1Strategy { get; set; } = null!;
+        private PlayerStrategyBase Player2Strategy { get; set; } = null!;
 
         public Board BoardPlayer1 { get { return boardPlayer1; } }
         public Board BoardPlayer2 { get { return this.boardPlayer2; } }
@@ -72,17 +74,16 @@ namespace DTA_2022_23_Battleship.Model {
         private List<Ship> GenerateShips() {
             var ships = new List<Ship>();
 
-            for (var i = 0; i < 4; i++)
-            {
-                ships.Add(new Ship(2));
+            for (var i = 0; i < 4; i++) {
+                ships.Add(new Submarine());
             }
             for (var i = 0; i < 3; i++) {
-                ships.Add(new Ship(3));
+                ships.Add(new Destroyer());
             }
             for (var i = 0; i < 2; i++) {
-                ships.Add(new Ship(4));
+                ships.Add(new Cruzer());
             }
-            ships.Add(new Ship(5));
+            ships.Add(new Battleship());
 
             return ships;
         }
