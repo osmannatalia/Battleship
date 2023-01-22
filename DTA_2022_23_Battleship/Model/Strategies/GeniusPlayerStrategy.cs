@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace DTA_2022_23_Battleship.Model.Strategies {
     public class GeniusPlayerStrategy : PlayerStrategyBase {
         private ShootingStateSquare[,] internalBoard;
-        private int currentPriority;
+        private int currentPriority = -1;
 #if TESTING
-        private Random random = new Random(10);
+        private Random random = new Random(14);
 #else
         private Random random = new Random();
 #endif
@@ -152,6 +152,9 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
                             }
                         }
                         this.internalBoard[r, c].Priority = blockedDirections;
+                        if ((r == 0 || r == board.Size - 1) ^ (c == 0 || c == board.Size - 1) && blockedDirections == 1) {
+                            this.internalBoard[r, c].Priority = -1;
+                        }
                         if (this.internalBoard[r, c].Priority <= currentPriority) {
                             prioCnt++;
                         } 
@@ -174,6 +177,7 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
                 return new Coordinate(0, 0);
             } else {
                 currentPriority++;
+                Debug.WriteLine("Prio");
                 return GetRandomCoordinate();
             }
 
@@ -207,7 +211,7 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
                     return !this.IsShot && !this.HasShipSquare && !this.RemoveForShooting;
                 }
             }
-            public int Priority { get; set; } = 0;
+            public int Priority { get; set; } = -1;
         }
     }
 }
