@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace DTA_2022_23_Battleship.Model.Strategies {
     public class GeniusPlayerStrategy : PlayerStrategyBase {
         private ShootingStateSquare[,] internalBoard;
+        private int currentPriority;
 #if TESTING
         private Random random = new Random(10);
 #else
@@ -84,95 +85,96 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
 
         public async override void Shot() {
             // Player is thinking ...
-            await Task.Delay(TimeSpan.FromSeconds(1.5));
+            await Task.Delay(TimeSpan.FromSeconds(0.05));
 
             if (this.nextShootingCoordinates.Any()) {
                 var nextIndex = this.random.Next(0, this.nextShootingCoordinates.Count - 1);
                 this.board.Shot(this.nextShootingCoordinates[nextIndex]);
             } else {
                 var coordinate = this.GetRandomCoordinate();
+                Debug.WriteLine(coordinate.X);
+                Debug.WriteLine(coordinate.Y);
                 this.board.Shot(coordinate);
             }
-
+            
             this.PrintBoard();
         }
 
         private Coordinate GetRandomCoordinate() {
-            var cnt = 0;
-            var optCnt = 0;
+            var prioCnt = 0;
             var shortest = board.ShortestShipLength;
             for (var r = 0; r < board.Size; r++) {
                 for (var c = 0; c < board.Size; c++) {
-                    if (this.internalBoard[r, c].CanShot) {
-                        cnt++;
-                    }
-                    if (this.internalBoard[r, c].Optimal) {
-                        bool opt = true;
-                        for (int i = r - shortest + 1; i < r + shortest; i++) {
+                    if (this.internalBoard[r, c].Priority <= currentPriority && this.internalBoard[r, c].CanShot) {
+                        int blockedDirections = 0;
+                        for (int i = r - shortest + 1; i < r; i++) {
                             if (i > board.Size - 1 || i < 0) {
-                                opt = false;
+                                blockedDirections++;
                                 break;
                             } else {
                                 if (!this.internalBoard[i, c].CanShot) {
-                                    opt = false;
+                                    blockedDirections++;
                                     break;
-                                } else {
-                                    for (int j = c - shortest + 1; j < c + shortest; j++) {
-                                        if (j > board.Size - 1 || j < 0) {
-                                            opt = false;
-                                            break;
-                                        } else {
-                                            if (!this.internalBoard[r, j].CanShot) {
-                                                opt = false;
-                                                break;
-                                            }
-                                        }
-                                    }
                                 }
                             }
-
                         }
-                        if (opt) {
-                            optCnt++;
-                        } else {
-                            this.internalBoard[r, c].Optimal = false;
-                            Debug.WriteLine("Suboptimal");
-                            Debug.WriteLine(r);
-                            Debug.WriteLine(c);
+                        for (int i = r + 1; i < r + shortest; i++) {
+                            if (i > board.Size - 1 || i < 0) {
+                                blockedDirections++;
+                                break;
+                            } else {
+                                if (!this.internalBoard[i, c].CanShot) {
+                                    blockedDirections++;
+                                    break;
+                                }
+                            }
                         }
+                        for (int i = c - shortest + 1; i < c; i++) {
+                            if (i > board.Size - 1 || i < 0) {
+                                blockedDirections++;
+                                break;
+                            } else {
+                                if (!this.internalBoard[r, i].CanShot) {
+                                    blockedDirections++;
+                                    break;
+                                }
+                            }
+                        }
+                        for (int i = c + 1; i < c + shortest; i++) {
+                            if (i > board.Size - 1 || i < 0) {
+                                blockedDirections++;
+                                break;
+                            } else {
+                                if (!this.internalBoard[r, i].CanShot) {
+                                    blockedDirections++;
+                                    break;
+                                }
+                            }
+                        }
+                        this.internalBoard[r, c].Priority = blockedDirections;
+                        if (this.internalBoard[r, c].Priority <= currentPriority) {
+                            prioCnt++;
+                        } 
                     }
-
                 }
             }
-            if (optCnt > 0) {
-                var nextSquare = this.random.Next(1, optCnt);
-                optCnt = 0;
+            if (prioCnt > 0) {
+                var nextSquare = this.random.Next(1, prioCnt);
+                prioCnt = 0;
                 for (var r = 0; r < board.Size; r++) {
                     for (var c = 0; c < board.Size; c++) {
-                        if (this.internalBoard[r, c].Optimal) {
-                            optCnt++;
+                        if (this.internalBoard[r, c].Priority <= currentPriority && this.internalBoard[r, c].CanShot) {
+                            prioCnt++;
                         }
-                        if (optCnt == nextSquare) {
+                        if (prioCnt == nextSquare) {
                             return new Coordinate(c, r);
                         }
                     }
                 }
                 return new Coordinate(0, 0);
             } else {
-                var nextSquare = this.random.Next(1, cnt);
-                cnt = 0;
-                for (var r = 0; r < board.Size; r++) {
-                    for (var c = 0; c < board.Size; c++) {
-                        if (this.internalBoard[r, c].CanShot) {
-                            cnt++;
-                        }
-                        if (cnt == nextSquare) {
-
-                            return new Coordinate(c, r);
-                        }
-                    }
-                }
-                return new Coordinate(0, 0);
+                currentPriority++;
+                return GetRandomCoordinate();
             }
 
         }
@@ -182,11 +184,12 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
             for (int r = 0; r < this.board.Size; r++) {
                 Debug.Write("|");
                 for (int c = 0; c < this.board.Size; c++) {
-                    if (this.internalBoard[r, c].Optimal) {
-                        Debug.Write("O");
+                    if (this.internalBoard[r, c].CanShot) {
+                        Debug.Write(this.internalBoard[r, c].Priority);
                     } else {
-                        Debug.Write(" ");
+                        Debug.Write('X');
                     }
+                    
                     Debug.Write("|");
                 }
                 Debug.WriteLine("\n--------------------");
@@ -204,7 +207,7 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
                     return !this.IsShot && !this.HasShipSquare && !this.RemoveForShooting;
                 }
             }
-            public bool Optimal { get; set; } = true;
+            public int Priority { get; set; } = 0;
         }
     }
 }
