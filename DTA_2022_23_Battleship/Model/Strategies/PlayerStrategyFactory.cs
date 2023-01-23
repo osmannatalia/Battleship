@@ -10,6 +10,8 @@
                     return new SmartPlayerStrategy(board);
                 case PlayerStrategy.Genius:
                     return new GeniusPlayerStrategy(board);
+                case PlayerStrategy.Expert:
+                    return new ExpertPlayerStrategy(board);
                 default:
                     throw new UnknownPlayerStrategyException();
             }

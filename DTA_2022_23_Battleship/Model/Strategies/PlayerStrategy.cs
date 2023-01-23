@@ -3,6 +3,7 @@
         Manual,
         Stupid,
         Smart,
-        Genius
+        Genius,
+        Expert
     }
 }

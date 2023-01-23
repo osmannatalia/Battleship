@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DTA_2022_23_Battleship.Model.Strategies {
-    public class GeniusPlayerStrategy : PlayerStrategyBase {
+    public class ExpertPlayerStrategy : PlayerStrategyBase {
         private ShootingStateSquare[,] internalBoard;
         private int currentPriority = -1;
 #if TESTING
@@ -14,12 +14,25 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
 #else
         private Random random = new Random();
 #endif
-        public GeniusPlayerStrategy(Board board) : base(board) {
+        public ExpertPlayerStrategy(Board board) : base(board) {
             this.internalBoard = new ShootingStateSquare[board.Size, board.Size];
 
             for (var r = 0; r < board.Size; r++) {
                 for (var c = 0; c < board.Size; c++) {
                     this.internalBoard[r, c] = new ShootingStateSquare();
+                    if ((r + c + 1) % 4 == 0) {
+                        if (r == 0 || r == board.Size - 1 || c == 0 || c == board.Size - 1) {
+                            this.internalBoard[r, c].Priority = 0;
+                        } else {
+                            this.internalBoard[r,c].Priority = 2;
+                        }
+                    } else if ((r + c + 1) % 2 == 0) {
+                        if (r == 0 || r == board.Size - 1 || c == 0 || c == board.Size - 1) {
+                            this.internalBoard[r, c].Priority = 1;
+                        } else {
+                            this.internalBoard[r, c].Priority = 3;
+                        }
+                    }
                 }
             }
 
@@ -92,6 +105,8 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
                 this.board.Shot(this.nextShootingCoordinates[nextIndex]);
             } else {
                 var coordinate = this.GetRandomCoordinate();
+                Debug.WriteLine(coordinate.X);
+                Debug.WriteLine(coordinate.Y);
                 this.board.Shot(coordinate);
             }
             
@@ -104,7 +119,8 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
             for (var r = 0; r < board.Size; r++) {
                 for (var c = 0; c < board.Size; c++) {
                     if (this.internalBoard[r, c].Priority <= currentPriority && this.internalBoard[r, c].CanShot) {
-                        int blockedDirections = 0;
+                        prioCnt++;
+                        /*int blockedDirections = 0;
                         for (int i = r - shortest + 1; i < r; i++) {
                             if (i > board.Size - 1 || i < 0) {
                                 blockedDirections++;
@@ -155,7 +171,8 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
                         }
                         if (this.internalBoard[r, c].Priority <= currentPriority) {
                             prioCnt++;
-                        } 
+                        } */
+                        
                     }
                 }
             }
@@ -175,6 +192,7 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
                 return new Coordinate(0, 0);
             } else {
                 currentPriority++;
+                Debug.WriteLine("Prio");
                 return GetRandomCoordinate();
             }
 
@@ -208,7 +226,7 @@ namespace DTA_2022_23_Battleship.Model.Strategies {
                     return !this.IsShot && !this.HasShipSquare && !this.RemoveForShooting;
                 }
             }
-            public int Priority { get; set; } = -1;
+            public int Priority { get; set; } = 4;
         }
     }
 }

@@ -52,8 +52,8 @@ namespace DTA_2022_23_Battleship.Model
                 }
             };
 
-            this.SetPlayer1Strategy(PlayerStrategy.Smart);
-            this.SetPlayer2Strategy(PlayerStrategy.Genius);
+            this.SetPlayer1Strategy(PlayerStrategy.Manual);
+            this.SetPlayer2Strategy(PlayerStrategy.Expert);
             boardPlayer1.IsYourTurn = true;
         }
 
