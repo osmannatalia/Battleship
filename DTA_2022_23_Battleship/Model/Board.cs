@@ -124,7 +124,7 @@ namespace DTA_2022_23_Battleship.Model
             }
             set {
                 this.isYourTurn = value;
-                if(this.IsYourTurnChanged != null) {
+                if(this.IsYourTurnChanged != null && !this.Defeat) {
                     this.IsYourTurnChanged(this, EventArgs.Empty);
                 }
             }

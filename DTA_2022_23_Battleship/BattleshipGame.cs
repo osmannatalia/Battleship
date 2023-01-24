@@ -1,4 +1,5 @@
 using DTA_2022_23_Battleship.Model;
+using System.Diagnostics;
 
 namespace DTA_2022_23_Battleship {
     public partial class BattleshipGame : Form {
@@ -26,12 +27,14 @@ namespace DTA_2022_23_Battleship {
             };
 
             game.BoardPlayer1.GameEnd += (sender, args) => {
-                this.label2.Text = "Player1 has won the game";
-                this.label3.Text = "Player2 has lost the game";
+                Debug.WriteLine("1end");
+                this.label2.Text = "Player2 has won the game";
+                this.label3.Text = "Player1 has lost the game";
             };
             game.BoardPlayer2.GameEnd += (sender, args) => {
-                this.label3.Text = "Player2 has won the game";
-                this.label2.Text = "Player1 has lost the game";
+                Debug.WriteLine("2end");
+                this.label3.Text = "Player1 has won the game";
+                this.label2.Text = "Player2 has lost the game";
             };
 
             game.StartNewGame();
