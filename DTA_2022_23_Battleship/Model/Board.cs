@@ -16,6 +16,14 @@ namespace DTA_2022_23_Battleship.Model
                 }
             }
         }
+        public bool Defeat {
+            get {
+                foreach (Ship ship in ships) {
+                    if (!ship.IsSunk) return false;
+                }
+                return true;
+            }
+        }
         public int ShortestShipLength
         {
             get {
@@ -74,7 +82,7 @@ namespace DTA_2022_23_Battleship.Model
 
         public int Score { get; private set; }
         public void Shot(Coordinate coordinate) {
-            if(!this.IsYourTurn) {
+            if(!this.IsYourTurn || this.Defeat) {
                 return;
             }
             ShotResponse response;
@@ -124,6 +132,10 @@ namespace DTA_2022_23_Battleship.Model
 
         public bool HasSunkenShip(Coordinate coordinate) {
             var seaSquare = this.GetSeaSquare(coordinate);
+            if (this.Defeat) {
+                Debug.Write("end");
+                this.GameEnd(this, EventArgs.Empty);
+            }
             return seaSquare.HasShip && seaSquare.ShipSquare!.Ship.IsSunk;
         }
 
@@ -139,8 +151,9 @@ namespace DTA_2022_23_Battleship.Model
 
         public event EventHandler? IsYourTurnChanged;
         public event EventHandler<AfterShotEventArgs>? AfterShot;
+        public event EventHandler GameEnd;
 
-        public void PrintBoard() {
+        /*public void PrintBoard() {
             Debug.WriteLine("\n--------------------");
             for (int r = 0; r < this.Size; r++) {
                 Debug.Write("|");
@@ -155,6 +168,6 @@ namespace DTA_2022_23_Battleship.Model
                 Debug.WriteLine("\n--------------------");
             }
 
-        }
+        }*/
     }
 }

@@ -52,6 +52,15 @@ namespace DTA_2022_23_Battleship.Model
                 }
             };
 
+            boardPlayer1.GameEnd += (sender, eventArgs) => {
+                boardPlayer1.IsYourTurn = false;
+                boardPlayer2.IsYourTurn = false;
+            };
+            boardPlayer2.GameEnd += (sender, eventArgs) => {
+                boardPlayer1.IsYourTurn = false;
+                boardPlayer2.IsYourTurn = false;
+            };
+
             this.SetPlayer1Strategy(PlayerStrategy.Manual);
             this.SetPlayer2Strategy(PlayerStrategy.Expert);
             boardPlayer1.IsYourTurn = true;

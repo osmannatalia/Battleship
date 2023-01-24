@@ -25,6 +25,15 @@ namespace DTA_2022_23_Battleship {
                 }
             };
 
+            game.BoardPlayer1.GameEnd += (sender, args) => {
+                this.label2.Text = "Player1 has won the game";
+                this.label3.Text = "Player2 has lost the game";
+            };
+            game.BoardPlayer2.GameEnd += (sender, args) => {
+                this.label3.Text = "Player2 has won the game";
+                this.label2.Text = "Player1 has lost the game";
+            };
+
             game.StartNewGame();
 
             this.battleshipBoardPlayer1.SetBoard(game.BoardPlayer1, true);
